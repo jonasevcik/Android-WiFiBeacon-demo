@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">WiFi Beacon</string>
+    <string name="alert_dialog_ok">OK</string>
+    <string name="alert_dialog_cancel">Cancel</string>
+    <string name="alert_dialog_message">Enable WiFi?</string>
+    <string name="no_results">No APs in range</string>
+    <string name="title_activity_filter">FilterActivity</string>
+
+    <string name="proximity_prompt">Select Proximity</string>
+    <string-array name="proximities_array">
+        <item>All</item>
+        <item>Immediate</item>
+        <item>Near</item>
+        <item>Far</item>
+    </string-array>
+
+    <string-array name="proximity_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string name="proximity_all">0</string>
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+    <ImageView
+        android:id="@+id/ic"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_list"/>
+
+    <TextView
+        android:id="@+id/ssid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/ic"
+        android:layout_toRightOf="@id/ic"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="?android:textColorPrimary"
+        tools:text="SSID"/>
+
+    <TextView
+        android:id="@+id/rss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/ic"
+        android:layout_below="@id/ssid"
+        android:layout_marginRight="8dp"
+        android:layout_toRightOf="@id/ic"
+        tools:text="-70"/>
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/rss"
+        android:layout_alignTop="@id/rss"
+        android:layout_toRightOf="@id/rss"
+        android:textColor="?android:textColorSecondary"
+        tools:text="FAR 71.5"/>
+
+</RelativeLayout>
