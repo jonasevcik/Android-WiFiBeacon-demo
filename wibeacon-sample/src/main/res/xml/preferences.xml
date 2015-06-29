@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:key="pref_ssid"
+        android:maxLength="32"
+        android:title="SSID"/>
+
+    <EditTextPreference
+        android:key="pref_mac"
+        android:maxLength="17"
+        android:title="MAC"/>
+
+    <EditTextPreference
+        android:key="pref_channels"
+        android:title="Channels"/>
+
+    <ListPreference
+        android:defaultValue="@string/proximity_all"
+        android:entries="@array/proximities_array"
+        android:entryValues="@array/proximity_values"
+        android:key="pref_proximity"
+        android:title="Proximity"/>
+</PreferenceScreen>

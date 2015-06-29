@@ -1,0 +1,46 @@
+package cz.droidboy.wibeacon.util;
+
+import cz.droidboy.wibeacon.range.Proximity;
+
+/**
+ * @author Jonas Sevcik
+ */
+public class ProximityUtils {
+
+    /**
+     * Calculates distance using Free-space path loss. Constant -27.55 is used for calculations, where frequency is in MHz and distance in meters
+     *
+     * @param level measured RSSI [dBm]
+     * @param freq  WiFi frequency [MHz]
+     * @return distance from AP [m]
+     */
+    public static double calculateDistance(double level, double freq) {
+        double exp = (27.55 - (20 * Math.log10(freq)) + Math.abs(level)) / 20.0;
+        return Math.pow(10.0, exp);
+    }
+
+    /**
+     * Estimates proximity to AP.
+     * <p>
+     * IMMEDIATE - Less than half a meter away
+     * NEAR - More than half a meter away, but less than four meters away
+     * FAR - More than four meters away
+     * UNKNOWN - No distance estimate was possible due to a bad RSS value or measured TX power
+     *
+     * @param rssi      measured RSSI [dBm]
+     * @param frequency [MHz]
+     * @return estimated proximity to AP
+     */
+    public static Proximity getProximity(int rssi, int frequency) {
+        double distance = calculateDistance(rssi, frequency);
+        if (distance < 0) {
+            return Proximity.UNKNOWN;
+        } else if (distance < 0.5) {
+            return Proximity.IMMEDIATE;
+        } else if (distance <= 4.0) {
+            return Proximity.NEAR;
+        } else {
+            return Proximity.FAR;
+        }
+    }
+}

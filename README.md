@@ -1,11 +1,13 @@
-# Android-WiFiBeacon-demo
+WiFiBeacon demo app for Android
+==========================
+
 App demonstrating usage of WiFi APs in iBeacon fashion. Read more at [droidboy.cz](http://www.droidboy.cz/2015/03/wifi-beacon.html)
 
 ![Screenshot](1.png)
 ![Screenshot](2.png)
 
 
-WiFi Beacon demo app
+WiFiBeacon demo app
 -----
 
 Download it form [Google Play](https://play.google.com/store/apps/details?id=cz.droidboy.wifibeacondemo)
