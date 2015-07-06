@@ -16,6 +16,7 @@ import android.util.Log;
 
 import java.util.List;
 
+import cz.droidboy.wibeacon.range.ProximityMonitor;
 import cz.droidboy.wifibeacon.util.PrefUtils;
 import cz.droidboy.wibeacon.range.ProximityScanner;
 import cz.droidboy.wibeacon.range.ScanFilter;
@@ -23,16 +24,16 @@ import cz.droidboy.wibeacon.range.ScanFilter;
 /**
  * @author Jonas Sevcik
  */
-public class WiFiDetectionService extends Service implements ProximityScanner.MonitoringListener {
+public class WiFiDetectionService extends Service implements ProximityMonitor.MonitoringListener {
 
     public static final String UPDATE_COMMAND_KEY = "update";
     public static final int UPDATE_COMMAND = 0;
     private static final String TAG = WiFiDetectionService.class.getSimpleName();
     private static final int UPDATE_INTERVAL = 10_000; //millis
     private static final int NOTIFICATION_ID = 0;
-    private ProximityScanner scanner;
-    private WifiManager.WifiLock wifiLock;
-    private BroadcastReceiver wifiDisabledReceiver = new BroadcastReceiver() {
+    private ProximityMonitor mMonitor;
+    private WifiManager.WifiLock mWifiLock;
+    private BroadcastReceiver mWifiDisabledReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (WifiManager.WIFI_STATE_CHANGED_ACTION.equals(intent.getAction())) {
@@ -52,7 +53,7 @@ public class WiFiDetectionService extends Service implements ProximityScanner.Mo
         super.onCreate();
         if (Build.VERSION.SDK_INT < 18) {
             acquireWifiLock();
-            registerReceiver(wifiDisabledReceiver, new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
+            registerReceiver(mWifiDisabledReceiver, new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
         }
 
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -66,14 +67,14 @@ public class WiFiDetectionService extends Service implements ProximityScanner.Mo
                 .setLights(0x0048a610, 500, 5000)
                 .extend(wearableExtender);
 
-        scanner = new ProximityScanner(this);
-        scanner.setMonitoringListener(this);
+        mMonitor = new ProximityMonitor(this);
+        mMonitor.setMonitoringListener(this);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand");
-        scanner.startMonitoringAPs(PrefUtils.prepareFilter(this), UPDATE_INTERVAL);
+        mMonitor.startMonitoringAPs(PrefUtils.prepareFilter(this), UPDATE_INTERVAL);
         return START_STICKY;
     }
 
@@ -81,27 +82,27 @@ public class WiFiDetectionService extends Service implements ProximityScanner.Mo
     public void onDestroy() {
         Log.d(TAG, "onDestroy");
         super.onDestroy();
-        scanner.stopMonitoringAPs();
+        mMonitor.stopMonitoringAPs();
 
         if (Build.VERSION.SDK_INT < 18) {
             releaseWifiLock();
-            unregisterReceiver(wifiDisabledReceiver);
+            unregisterReceiver(mWifiDisabledReceiver);
         }
     }
 
     private void acquireWifiLock() {
         WifiManager manager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        wifiLock = manager.createWifiLock(WifiManager.WIFI_MODE_SCAN_ONLY, TAG);
-        wifiLock.setReferenceCounted(false);
-        wifiLock.acquire();
+        mWifiLock = manager.createWifiLock(WifiManager.WIFI_MODE_SCAN_ONLY, TAG);
+        mWifiLock.setReferenceCounted(false);
+        mWifiLock.acquire();
     }
 
     private void releaseWifiLock() {
-        if (wifiLock != null) {
-            if (wifiLock.isHeld()) {
-                wifiLock.release();
+        if (mWifiLock != null) {
+            if (mWifiLock.isHeld()) {
+                mWifiLock.release();
             }
-            wifiLock = null;
+            mWifiLock = null;
         }
     }
 
