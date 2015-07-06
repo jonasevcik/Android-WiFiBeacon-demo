@@ -19,7 +19,8 @@ public class ContinuousReceiver extends BroadcastReceiver {
 
     public static final int INTERVAL_IMMEDIATE = 0;
     private static final String TAG = ContinuousReceiver.class.getSimpleName();
-    private static Handler sScanHandler = new Handler();
+
+    private Handler mScanHandler = new Handler();
     @NonNull
     private Context mContext;
     private WifiManager mManager;
@@ -95,8 +96,8 @@ public class ContinuousReceiver extends BroadcastReceiver {
                 mManager.startScan();
                 mLastScanTime = scanTime;
             } else {
-                sScanHandler.removeCallbacks(mScanRunnable);
-                sScanHandler.postDelayed(mScanRunnable, mScanInterval - scanDelay);
+                mScanHandler.removeCallbacks(mScanRunnable);
+                mScanHandler.postDelayed(mScanRunnable, mScanInterval - scanDelay);
             }
         }
     }
@@ -141,7 +142,7 @@ public class ContinuousReceiver extends BroadcastReceiver {
      */
     public void stopScanning() {
         if (mContinueScanning) {
-            sScanHandler.removeCallbacks(mScanRunnable);
+            mScanHandler.removeCallbacks(mScanRunnable);
             mContinueScanning = false;
             mContext.unregisterReceiver(this);
         }
