@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class ContinuousReceiver extends BroadcastReceiver {
 
-    public static final int INTERVAL_IMMEDIATE = 0;
     private static final String TAG = ContinuousReceiver.class.getSimpleName();
+    public static final int INTERVAL_IMMEDIATE = 0;
 
     private Handler mScanHandler = new Handler();
     @NonNull
@@ -49,7 +49,8 @@ public class ContinuousReceiver extends BroadcastReceiver {
 
     /**
      * Constructor used when needed to specify ScanResult delivery rate.
-     * Note that the ScanResult updates may be faster than this rate if another app is receiving
+     *
+     * Note that the {@link android.net.wifi.ScanResult} updates may be faster than this rate if another app is receiving
      * updates at a faster rate, or slower than this rate, or there may be no updates at all
      * (if the device has no connectivity, for example).
      *
@@ -104,7 +105,8 @@ public class ContinuousReceiver extends BroadcastReceiver {
 
     /**
      * This method sets the rate in milliseconds at which your app prefers to receive ScanResult updates.
-     * Note that the ScanResult updates may be faster than this rate if another app is receiving
+     *
+     * Note that the {@link android.net.wifi.ScanResult} updates may be faster than this rate if another app is receiving
      * updates at a faster rate, or slower than this rate, or there may be no updates at all
      * (if the device has no connectivity, for example).
      *
@@ -119,7 +121,7 @@ public class ContinuousReceiver extends BroadcastReceiver {
 
     /**
      * Initiate WiFi scan.
-     * Don't forget to unregister from receiving scan updates by calling stopScanning()
+     * Don't forget to unregister from receiving scan updates by calling {@link #stopScanning()}
      *
      * @param publishCachedResultsInstantly publish ScanResults from the most recent scan immediately
      */

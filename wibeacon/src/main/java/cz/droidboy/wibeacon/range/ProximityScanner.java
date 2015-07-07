@@ -20,12 +20,6 @@ import cz.droidboy.wibeacon.ContinuousReceiver;
  */
 public class ProximityScanner implements ContinuousReceiver.ScanResultsListener {
 
-    private static final String TAG = ProximityScanner.class.getSimpleName();
-
-    private ScanFilter ragingFilter;
-    private RangingListener rangingListener;
-    private ContinuousReceiver rangingReceiver;
-    private SimpleArrayMap<String, AveragedScanResult> averagedResults = new SimpleArrayMap<>();
     private static final Comparator<ScanResult> SCAN_RESULT_COMPARATOR = new Comparator<ScanResult>() {
         @Override
         public int compare(ScanResult lhs, ScanResult rhs) {
@@ -33,14 +27,26 @@ public class ProximityScanner implements ContinuousReceiver.ScanResultsListener 
         }
     };
 
-    public ProximityScanner(@NonNull Context context) {
+    private ScanFilter ragingFilter;
+    private RangingListener rangingListener;
+    private ContinuousReceiver rangingReceiver;
+    private SimpleArrayMap<String, AveragedScanResult> averagedResults = new SimpleArrayMap<>();
+
+    public ProximityScanner(@NonNull Context context, @NonNull RangingListener rangingListener) {
         rangingReceiver = new ContinuousReceiver(context, this, ContinuousReceiver.INTERVAL_IMMEDIATE);
+        this.rangingListener = rangingListener;
     }
 
     public void setRangingListener(@NonNull RangingListener rangingListener) {
         this.rangingListener = rangingListener;
     }
 
+    /**
+     * Starts continuous scanning. Scan results are filtered according to passed filter.
+     * Don't forget to call {@link #stopRangingAPs()} when done.
+     *
+     * @param filter scan filter. If null, no filtering is applied.
+     */
     public void startRangingAPs(@Nullable ScanFilter filter) {
         ragingFilter = filter;
         rangingReceiver.startScanning(true);

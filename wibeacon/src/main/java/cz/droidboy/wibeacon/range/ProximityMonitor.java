@@ -22,14 +22,26 @@ public class ProximityMonitor implements ContinuousReceiver.ScanResultsListener 
     private ContinuousReceiver monitoringReceiver;
     private Set<String> monitoredResults = new HashSet<>();
 
-    public ProximityMonitor(@NonNull Context context) {
+    public ProximityMonitor(@NonNull Context context, @NonNull MonitoringListener monitoringListener) {
         monitoringReceiver = new ContinuousReceiver(context, this, ContinuousReceiver.INTERVAL_IMMEDIATE);
+        this.monitoringListener = monitoringListener;
     }
 
     public void setMonitoringListener(@NonNull MonitoringListener monitoringListener) {
         this.monitoringListener = monitoringListener;
     }
 
+    /**
+     * Initiates monitoring of surrounding APs, specified by the filter.
+     * Don't forget to call {@link #stopMonitoringAPs()} when done.
+     *
+     * Note that the {@link android.net.wifi.ScanResult} updates may be faster than this rate if another app is receiving
+     * updates at a faster rate, or slower than this rate, or there may be no updates at all
+     * (if the device has no connectivity, for example).
+     *
+     * @param filter for filtering results. If null, no filtering is applied.
+     * @param scanInterval preferred delay between scans [millis]. Cannot be negative
+     */
     public void startMonitoringAPs(@Nullable ScanFilter filter, int scanInterval) {
         monitoringFilter = filter;
         monitoringReceiver.changeScanInterval(scanInterval);
