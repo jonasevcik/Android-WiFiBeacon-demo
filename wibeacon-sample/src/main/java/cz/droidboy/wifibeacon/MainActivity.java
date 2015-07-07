@@ -32,8 +32,7 @@ public class MainActivity extends BaseActivity implements ProximityScanner.Rangi
         adapter = new APAdapter(this);
         listView.setAdapter(adapter);
 
-        scanner = new ProximityScanner(this);
-        scanner.setRangingListener(this);
+        scanner = new ProximityScanner(this, this);
 
         startService(new Intent(MainActivity.this, WiFiDetectionService.class));
 

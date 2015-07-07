@@ -67,8 +67,7 @@ public class WiFiDetectionService extends Service implements ProximityMonitor.Mo
                 .setLights(0x0048a610, 500, 5000)
                 .extend(wearableExtender);
 
-        mMonitor = new ProximityMonitor(this);
-        mMonitor.setMonitoringListener(this);
+        mMonitor = new ProximityMonitor(this, this);
     }
 
     @Override
