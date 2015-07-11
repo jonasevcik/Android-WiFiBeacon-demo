@@ -44,7 +44,7 @@ public class ProximityScanner implements ContinuousReceiver.ScanResultsListener 
         if (rangingListener == null) {
             throw new NullPointerException("rangingListener == null");
         }
-        rangingReceiver = new ContinuousReceiver(context, this, ContinuousReceiver.INTERVAL_IMMEDIATE);
+        rangingReceiver = new ContinuousReceiver(context, this);
         this.rangingListener = rangingListener;
     }
 

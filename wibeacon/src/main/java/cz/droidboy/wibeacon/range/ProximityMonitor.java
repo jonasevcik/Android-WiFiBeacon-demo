@@ -17,6 +17,8 @@ import cz.droidboy.wibeacon.ContinuousReceiver;
  */
 public class ProximityMonitor implements ContinuousReceiver.ScanResultsListener {
 
+    public static final int INTERVAL_DEFAULT = 30_000; // 30s
+
     private ScanFilter monitoringFilter;
     private MonitoringListener monitoringListener;
     private ContinuousReceiver monitoringReceiver;
@@ -34,7 +36,7 @@ public class ProximityMonitor implements ContinuousReceiver.ScanResultsListener 
         if (monitoringListener == null) {
             throw new NullPointerException("monitoringListener == null");
         }
-        monitoringReceiver = new ContinuousReceiver(context, this, ContinuousReceiver.INTERVAL_IMMEDIATE);
+        monitoringReceiver = new ContinuousReceiver(context, this);
         this.monitoringListener = monitoringListener;
     }
 
@@ -51,12 +53,21 @@ public class ProximityMonitor implements ContinuousReceiver.ScanResultsListener 
      * (if the device has no connectivity, for example).
      *
      * @param filter for filtering results; if null, no filtering is applied
-     * @param scanInterval preferred delay between scans [millis]; cannot be negative
+     * @param monitoringInterval preferred delay between scans [millis]; cannot be negative
      */
-    public void startMonitoringAPs(@Nullable ScanFilter filter, int scanInterval) {
+    public void startMonitoringAPs(@Nullable ScanFilter filter, int monitoringInterval) {
         monitoringFilter = filter;
-        monitoringReceiver.changeScanInterval(scanInterval);
+        monitoringReceiver.changeScanInterval(monitoringInterval);
         monitoringReceiver.startScanning(true);
+    }
+
+    /**
+     * Same functionality as {@link #startMonitoringAPs(ScanFilter, int)}. Uses default monitoring interval of 30s.
+     *
+     * @param filter for filtering results; if null, no filtering is applied
+     */
+    public void startMonitoringAPs(@Nullable ScanFilter filter) {
+        startMonitoringAPs(filter, INTERVAL_DEFAULT);
     }
 
     public void stopMonitoringAPs() {

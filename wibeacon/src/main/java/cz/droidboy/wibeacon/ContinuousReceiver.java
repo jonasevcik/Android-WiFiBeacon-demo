@@ -24,8 +24,7 @@ public class ContinuousReceiver extends BroadcastReceiver {
     @NonNull
     private Context mContext;
     private WifiManager mManager;
-    @NonNull
-    private ScanResultsListener mListener;
+    @NonNull private ScanResultsListener mListener;
     private boolean mContinueScanning = false;
 
     private long mLastScanTime = 0;
@@ -78,7 +77,6 @@ public class ContinuousReceiver extends BroadcastReceiver {
 
     @Override
     public final void onReceive(Context context, Intent intent) {
-        //Log.d(TAG, "onReceive");
         if (!WifiManager.SCAN_RESULTS_AVAILABLE_ACTION.equals(intent.getAction())) {
             throw new IllegalStateException("ContinuousReceiver registered for wrong action: " + intent.getAction());
         }

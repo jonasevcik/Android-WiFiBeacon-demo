@@ -23,8 +23,8 @@ public class BaseActivity extends Activity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
 
         WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 

@@ -39,16 +39,18 @@ public class MainActivity extends BaseActivity implements ProximityScanner.Rangi
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
+
         ScanFilter filter = PrefUtils.prepareFilter(this);
         scanner.startRangingAPs(filter);
     }
 
     @Override
-    protected void onPause() {
+    protected void onStop() {
+        super.onStop();
+
         scanner.stopRangingAPs();
-        super.onPause();
     }
 
     @Override
