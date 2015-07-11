@@ -3,7 +3,9 @@ package cz.droidboy.wibeacon.util;
 /**
  * @author Jonas Sevcik
  */
-public class WifiUtils {
+public final class WifiUtils {
+
+    private WifiUtils(){}
 
     /**
      * Converts frequency to channel number.

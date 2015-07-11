@@ -22,7 +22,18 @@ public class ProximityMonitor implements ContinuousReceiver.ScanResultsListener 
     private ContinuousReceiver monitoringReceiver;
     private Set<String> monitoredResults = new HashSet<>();
 
+    /**
+     * @param context
+     * @param monitoringListener for publishing monitoring events
+     * @throws NullPointerException if {@code context} or {@code monitoringListener} is null
+     */
     public ProximityMonitor(@NonNull Context context, @NonNull MonitoringListener monitoringListener) {
+        if (context == null) {
+            throw new NullPointerException("context == null");
+        }
+        if (monitoringListener == null) {
+            throw new NullPointerException("monitoringListener == null");
+        }
         monitoringReceiver = new ContinuousReceiver(context, this, ContinuousReceiver.INTERVAL_IMMEDIATE);
         this.monitoringListener = monitoringListener;
     }
@@ -39,8 +50,8 @@ public class ProximityMonitor implements ContinuousReceiver.ScanResultsListener 
      * updates at a faster rate, or slower than this rate, or there may be no updates at all
      * (if the device has no connectivity, for example).
      *
-     * @param filter for filtering results. If null, no filtering is applied.
-     * @param scanInterval preferred delay between scans [millis]. Cannot be negative
+     * @param filter for filtering results; if null, no filtering is applied
+     * @param scanInterval preferred delay between scans [millis]; cannot be negative
      */
     public void startMonitoringAPs(@Nullable ScanFilter filter, int scanInterval) {
         monitoringFilter = filter;

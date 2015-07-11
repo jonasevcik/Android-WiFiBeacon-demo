@@ -32,7 +32,18 @@ public class ProximityScanner implements ContinuousReceiver.ScanResultsListener 
     private ContinuousReceiver rangingReceiver;
     private SimpleArrayMap<String, AveragedScanResult> averagedResults = new SimpleArrayMap<>();
 
+    /**
+     * @param context
+     * @param rangingListener used to publish ranging events
+     * @throws NullPointerException if {@code context} or {@code rangingListener} is null
+     */
     public ProximityScanner(@NonNull Context context, @NonNull RangingListener rangingListener) {
+        if (context == null) {
+            throw new NullPointerException("context == null");
+        }
+        if (rangingListener == null) {
+            throw new NullPointerException("rangingListener == null");
+        }
         rangingReceiver = new ContinuousReceiver(context, this, ContinuousReceiver.INTERVAL_IMMEDIATE);
         this.rangingListener = rangingListener;
     }
@@ -45,7 +56,7 @@ public class ProximityScanner implements ContinuousReceiver.ScanResultsListener 
      * Starts continuous scanning. Scan results are filtered according to passed filter.
      * Don't forget to call {@link #stopRangingAPs()} when done.
      *
-     * @param filter scan filter. If null, no filtering is applied.
+     * @param filter scan filter; if null, no filtering is applied
      */
     public void startRangingAPs(@Nullable ScanFilter filter) {
         ragingFilter = filter;

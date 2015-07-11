@@ -57,13 +57,15 @@ public class ContinuousReceiver extends BroadcastReceiver {
      * @param context      cannot be null
      * @param listener     for delivering results to. Cannot be null
      * @param scanInterval preferred delay between scans [millis]. Cannot be negative
+     * @throws NullPointerException if {@code context} or {@code listener} is null
+     * @throws  IllegalArgumentException if {@code scanInterval} is negative
      */
     public ContinuousReceiver(@NonNull Context context, @NonNull ScanResultsListener listener, int scanInterval) {
         if (context == null) {
-            throw new IllegalArgumentException("mContext cannot be null");
+            throw new NullPointerException("mContext cannot be null");
         }
         if (listener == null) {
-            throw new IllegalArgumentException("mListener cannot be null");
+            throw new NullPointerException("mListener cannot be null");
         }
         if (scanInterval < 0) {
             throw new IllegalArgumentException("mScanInterval cannot be negative");
@@ -78,7 +80,7 @@ public class ContinuousReceiver extends BroadcastReceiver {
     public final void onReceive(Context context, Intent intent) {
         //Log.d(TAG, "onReceive");
         if (!WifiManager.SCAN_RESULTS_AVAILABLE_ACTION.equals(intent.getAction())) {
-            throw new IllegalArgumentException("ContinuousReceiver registered for wrong action: " + intent.getAction());
+            throw new IllegalStateException("ContinuousReceiver registered for wrong action: " + intent.getAction());
         }
 
         if (mContinueScanning) {
@@ -111,6 +113,7 @@ public class ContinuousReceiver extends BroadcastReceiver {
      * (if the device has no connectivity, for example).
      *
      * @param scanInterval preferred delay between scans [millis]. Cannot be negative
+     * @throws IllegalArgumentException if {@code scanInterval} is negative
      */
     public void changeScanInterval(int scanInterval) {
         if (scanInterval < 0) {

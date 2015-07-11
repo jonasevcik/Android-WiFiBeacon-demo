@@ -30,6 +30,7 @@ public class ScanFilter {
      * @param mac      Ethernet MAC address, e.g., XX:XX:XX:XX:XX:XX where each X is a hex digit
      * @param ssid     service set identifier of the 802.11 network
      * @param channels Set of channel numbers
+     * @throws IllegalArgumentException if {@code mac}'s length > 17 chars or {@code ssid}'s length > 32 chars
      */
     public ScanFilter(@Nullable String mac, @Nullable String ssid, @Nullable Set<Integer> channels, @Nullable Proximity proximity) {
         if (mac != null && mac.length() > 17) {

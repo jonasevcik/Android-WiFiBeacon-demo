@@ -5,7 +5,9 @@ import cz.droidboy.wibeacon.range.Proximity;
 /**
  * @author Jonas Sevcik
  */
-public class ProximityUtils {
+public final class ProximityUtils {
+
+    private ProximityUtils(){}
 
     /**
      * Calculates distance using Free-space path loss. Constant -27.55 is used for calculations, where frequency is in MHz and distance in meters
