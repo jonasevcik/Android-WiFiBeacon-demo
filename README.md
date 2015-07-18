@@ -10,7 +10,22 @@ App demonstrating usage of WiFi APs in iBeacon fashion. Read more at [droidboy.c
 WiFiBeacon demo app
 -----
 
-Download it form [Google Play](https://play.google.com/store/apps/details?id=cz.droidboy.wifibeacondemo)
+Download it from [Google Play](https://play.google.com/store/apps/details?id=cz.droidboy.wifibeacondemo)
+
+
+Usage - core classes
+-----
+
+ProximityMonitor - used for monitoring device's presence in a defined region by a ScanFilter.
+You can listen for following callbacks:
+* onEnterRegion
+* onDwellRegion
+* onExitRegion
+
+ProximityScanner - used for fast updates of device's surroundings counstrained by a ScanFilter.
+Results are delivered to callback:
+* onAPsDiscovered
+
 
 License
 -------
