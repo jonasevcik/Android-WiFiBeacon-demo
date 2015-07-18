@@ -22,7 +22,7 @@ You can listen for following callbacks:
 * onDwellRegion
 * onExitRegion
 
-ProximityScanner - used for fast updates of device's surroundings counstrained by a ScanFilter.
+ProximityScanner - used for fast updates of device's surroundings constrained by a ScanFilter.
 Results are delivered to callback:
 * onAPsDiscovered
 
