@@ -61,18 +61,18 @@ public class ContinuousReceiver extends BroadcastReceiver {
      */
     public ContinuousReceiver(@NonNull Context context, @NonNull ScanResultsListener listener, int scanInterval) {
         if (context == null) {
-            throw new NullPointerException("mContext cannot be null");
+            throw new NullPointerException("context cannot be null");
         }
         if (listener == null) {
-            throw new NullPointerException("mListener cannot be null");
+            throw new NullPointerException("listener cannot be null");
         }
         if (scanInterval < 0) {
-            throw new IllegalArgumentException("mScanInterval cannot be negative");
+            throw new IllegalArgumentException("scanInterval cannot be negative");
         }
-        mContext = context;
+        mContext = context.getApplicationContext();
         mListener = listener;
         mScanInterval = scanInterval;
-        mManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        mManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
     }
 
     @Override

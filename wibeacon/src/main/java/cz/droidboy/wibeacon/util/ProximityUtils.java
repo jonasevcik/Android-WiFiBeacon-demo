@@ -10,7 +10,8 @@ public final class ProximityUtils {
     private ProximityUtils(){}
 
     /**
-     * Calculates distance using Free-space path loss. Constant -27.55 is used for calculations, where frequency is in MHz and distance in meters
+     * Calculates distance using Free-space path loss. Constant -27.55 is used for calculations, where frequency is in MHz and distance in meters.
+     * FSPL(dB) = 20 log(d) + 20 log(f) - 27.55; d distance from the transmitter [m], f signal frequency [MHz]
      *
      * @param level measured RSSI [dBm]
      * @param freq  WiFi frequency [MHz]
@@ -19,6 +20,11 @@ public final class ProximityUtils {
     public static double calculateDistance(double level, double freq) {
         double exp = (27.55 - (20 * Math.log10(freq)) + Math.abs(level)) / 20.0;
         return Math.pow(10.0, exp);
+    }
+
+    public static double calculateIndoorDistance(double level, double freq) {
+        double exp = (27.55d - 40d * Math.log10(freq) + 6.7d - level) / 20.0d;
+        return Math.pow(10.0d, exp);
     }
 
     /**

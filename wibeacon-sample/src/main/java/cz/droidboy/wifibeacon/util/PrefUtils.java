@@ -9,9 +9,9 @@ import android.support.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 
-import cz.droidboy.wifibeacon.SettingsFragment;
 import cz.droidboy.wibeacon.range.Proximity;
 import cz.droidboy.wibeacon.range.ScanFilter;
+import cz.droidboy.wifibeacon.SettingsFragment;
 
 /**
  * @author Jonas Sevcik
@@ -47,7 +47,12 @@ public class PrefUtils {
         if (mac == null && ssid == null && channels == null && proximity == null) {
             return null;
         } else {
-            return new ScanFilter(mac, ssid, channels, proximity);
+            return new ScanFilter.Builder()
+                    .setMac(mac)
+                    .setSsid(ssid)
+                    .setChannels(channels)
+                    .setProximity(proximity)
+                    .build();
         }
     }
 
