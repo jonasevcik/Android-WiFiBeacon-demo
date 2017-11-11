@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Android-WiFiBeacon-demo.iml" filepath="$PROJECT_DIR$/.idea/Android-WiFiBeacon-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wibeacon/wibeacon.iml" filepath="$PROJECT_DIR$/wibeacon/wibeacon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wibeacon-sample/wibeacon-sample.iml" filepath="$PROJECT_DIR$/wibeacon-sample/wibeacon-sample.iml" />
+    </modules>
+  </component>
+</project>

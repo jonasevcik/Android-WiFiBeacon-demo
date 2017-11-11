@@ -47,12 +47,7 @@ public class PrefUtils {
         if (mac == null && ssid == null && channels == null && proximity == null) {
             return null;
         } else {
-            return new ScanFilter.Builder()
-                    .setMac(mac)
-                    .setSsid(ssid)
-                    .setChannels(channels)
-                    .setProximity(proximity)
-                    .build();
+            return new ScanFilter(mac, ssid, channels, proximity);
         }
     }
 
